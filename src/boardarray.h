@@ -22,6 +22,13 @@ public:
 
         int pos = index;
 
+        if(index == SIZE){
+            if(!entry->compare(array[SIZE - 1])){ 
+                cout << entry->name << "'s score is too low to be added!" << endl;
+                return;
+            }
+        }
+
         for (int i = 0; i < index; i++)
         {
             if (entry->compare(array[i]))
@@ -37,11 +44,7 @@ public:
         array[pos] = *entry;
         index++;
 
-        if (index == SIZE && pos == index)
-        {
-            cout << entry->name << "'s score is too low to be added!" << endl;
-            return;
-        }
+        
     }
 
     void print()
