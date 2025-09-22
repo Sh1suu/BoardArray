@@ -15,15 +15,15 @@ public:
         index = 0;
     }
 
-    void add(Entry *entry)
+    void add(Entry* entry)
     {
         // TODO: IMPLEMENT THIS FUNCTION
         // ALGORITHM IS PROVIDED IN INSTRUCTIONS.TXT
 
         int pos = index;
 
-        if(index == SIZE){
-            if(!entry->compare(array[SIZE - 1])){ 
+        if(index == SIZE){  
+            if(!entry->compare(&array[SIZE - 1])){ 
                 cout << entry->name << "'s score is too low to be added!" << endl;
                 return;
             }
@@ -31,19 +31,25 @@ public:
 
         for (int i = 0; i < index; i++)
         {
-            if (entry->compare(array[i]))
+            if (entry->compare(&array[i]))
             {
                 pos = i;
                 break;
             }
         }
 
-        for (int i = index; i > pos; i--) { // shift right
-            array[i] = array[i - 1];
-        }
-        array[pos] = *entry;
-        index++;
+        int maxShift = (index < SIZE) ? index : (SIZE - 1);
 
+
+        for (int j = index; j > pos; --j) { // shift right
+            array[j] = array[j - 1];
+        }
+
+        array[pos] = *entry;
+
+        if (index < SIZE){
+        index++;
+    }
         
     }
 
