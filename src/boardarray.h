@@ -15,43 +15,35 @@ public:
         index = 0;
     }
 
-    void add(Entry* entry)
-    {
-        // TODO: IMPLEMENT THIS FUNCTION
-        // ALGORITHM IS PROVIDED IN INSTRUCTIONS.TXT
+    void add(Entry* entry) {
 
-        int pos = index;
-
-        if(index == SIZE){  
-            if(!entry->compare(&array[SIZE - 1])){ 
-                cout << entry->name << "'s score is too low to be added!" << endl;
-                return;
-            }
+    int pos = index; 
+    for (int i = 0; i < index; ++i) {
+        if (entry->compare(&array[i])) {
+            pos = i;
+            break;
         }
-
-        for (int i = 0; i < index; i++)
-        {
-            if (entry->compare(&array[i]))
-            {
-                pos = i;
-                break;
-            }
-        }
-
-        int maxShift = (index < SIZE) ? index : (SIZE - 1);
-
-
-        for (int j = index; j > pos; --j) { // shift right
-            array[j] = array[j - 1];
-        }
-
-        array[pos] = *entry;
-
-        if (index < SIZE){
-        index++;
     }
+
+    if (index == SIZE && !entry->compare(&array[SIZE - 1])) { //full and not higher than last
+        cout << entry->name << "'s score is too low to be added!" << endl;
+        return;
+    }
+
+    int limit = (index < SIZE) ? index : SIZE - 1;
+
+    for (int j = limit; j > pos; --j) { //shift right
+        array[j] = array[j - 1];
+    }
+
+    array[pos] = *entry;
+
+    if (index < SIZE) {
+        ++index;
+    }
+}
         
-    }
+    
 
     void print()
     {
